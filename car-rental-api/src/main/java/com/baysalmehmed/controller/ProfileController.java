@@ -1,8 +1,7 @@
 package com.baysalmehmed.controller;
 
-import com.baysalmehmed.ProfileService;
-import com.baysalmehmed.model.Profile;
-import org.springframework.http.HttpHeaders;
+import com.baysalmehmed.service.ProfileService;
+import com.baysalmehmed.model.couchbase.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,13 +17,13 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @GetMapping
-    public ResponseEntity<Profile> getProfile(){
-        return ResponseEntity.ok(profileService.getProfile());
+    @GetMapping("/{id}")
+    public ResponseEntity<Profile> getProfile(@PathVariable String id){
+        return ResponseEntity.ok(profileService.getProfile(id));
     }
 
     @PostMapping
-    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile){
+    public ResponseEntity<String> createProfile(@RequestBody Profile profile){
         return new ResponseEntity<>(profileService.createProfile(profile), HttpStatus.OK);
     }
 

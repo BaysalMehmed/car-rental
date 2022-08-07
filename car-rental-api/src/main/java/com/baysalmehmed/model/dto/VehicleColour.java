@@ -1,4 +1,4 @@
-package com.baysalmehmed.model;
+package com.baysalmehmed.model.dto;
 
 public enum VehicleColour {
     RED,
