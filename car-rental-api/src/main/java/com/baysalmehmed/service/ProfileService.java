@@ -19,9 +19,9 @@ public class ProfileService {
         return profileRepository.findById(id).orElse(null);
     }
 
-    public String createProfile(Profile profile){
+    public Profile createProfile(Profile profile){
         profileRepository.save(profile);
-        return profile.getId();
+        return profile;
     }
 
 }

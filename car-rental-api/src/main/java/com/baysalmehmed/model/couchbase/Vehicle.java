@@ -20,15 +20,11 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationStrategy.UNIQUE, delimiter = "_")
     String id;
 
-    @IdAttribute
     String brand;
-
-    @IdAttribute
     String model;
-
-    @IdAttribute
     String trim;
     VehicleColour colour;
     Integer year;
     String numberPlate;
+    Long costPerDay;
 }

@@ -6,5 +6,5 @@ export default interface iProfile{
     surname: String
     email: String
     phoneNumber: String
-    vehicles: iVehicle[]
+    vehicles?: iVehicle[]
 }
