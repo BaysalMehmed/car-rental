@@ -26,11 +26,11 @@ export default function CreateProfile() {
             <>
                 <div>
                     <label htmlFor="firstName">First Name: </label>
-                    <input type="text" id="firtName" onChange={(value => setFirstName(validate(value.target.value, value.target.value.length > 5, "First Name must contain more than 4 characters")))} />
+                    <input type="text" id="firtName" onChange={(value => setFirstName(validate(value.target.value, value.target.value.length >= 5, "First Name must contain more than 4 characters")))} />
                     <b className="error-text"> {firstName.error && firstName.error}</b>
                 </div>
                 <div><label htmlFor="surname">Surname: </label>
-                    <input type="text" id="surname" onChange={(value => setSurname(validate(value.target.value, value.target.value.length > 5, "Surname must contain more than 4 characters")))} />
+                    <input type="text" id="surname" onChange={(value => setSurname(validate(value.target.value, value.target.value.length >= 5, "Surname must contain more than 4 characters")))} />
                     <b className="error-text"> {surname.error && surname.error}</b>
                     </div>
                 <div><label htmlFor="email">Email: </label>

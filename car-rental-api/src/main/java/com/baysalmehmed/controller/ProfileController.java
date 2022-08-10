@@ -19,7 +19,10 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable String id){
-        return ResponseEntity.ok(profileService.getProfile(id));
+        Profile profile = new Profile();
+        profile.setFirstName("Test");
+        return ResponseEntity.ok(profile);
+        //return ResponseEntity.ok(profileService.getProfile(id));
     }
 
     @PostMapping
