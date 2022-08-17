@@ -5,4 +5,39 @@
 
 .app-space {
   margin: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
 }
+
+.input-div{
+ margin: 2px;
+ border-radius: 10px;
+  border: 1px solid #a1a1a1;
+  padding-left: 5px;
+  width: 100%;
+}
+
+.double-field{
+  width: 49%;
+}
+
+.submit-button{
+  margin-top: 5px;
+  border-radius: 10px;
+   border: 1px solid #a1a1a1;
+   padding-left: 5px;
+   padding-right: 5px;
+   width: 100%;
+ }
+
+ .error-red{
+  color: red;
+  position: absolute;
+  z-index: 100;
+ }
+
+ .create-profile-container{
+  max-width: 400px;
+  margin: auto;
+ }
