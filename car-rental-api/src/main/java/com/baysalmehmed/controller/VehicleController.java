@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -26,7 +28,7 @@ public class VehicleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> AddVehicle(@RequestBody Vehicle vehicle){
+    public ResponseEntity<Vehicle> AddVehicle(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.addVehicle(vehicle), HttpStatus.OK);
     }
 

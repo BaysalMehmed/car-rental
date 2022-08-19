@@ -1,10 +1,12 @@
 package com.baysalmehmed.controller;
 
+import com.baysalmehmed.exception.ProfileNotFound;
 import com.baysalmehmed.service.ProfileService;
 import com.baysalmehmed.model.couchbase.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -18,10 +20,7 @@ public class ProfileController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Profile> getProfile(@PathVariable String id){
-//        Profile profile = new Profile();
-//        profile.setFirstName("Test");
-//        return ResponseEntity.ok(profile);
+    public ResponseEntity<Profile> getProfile(@PathVariable String id) throws Exception {
         return ResponseEntity.ok(profileService.getProfile(id));
     }
 

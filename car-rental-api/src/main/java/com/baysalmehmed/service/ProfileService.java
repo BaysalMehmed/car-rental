@@ -1,5 +1,6 @@
 package com.baysalmehmed.service;
 
+import com.baysalmehmed.exception.ProfileNotFound;
 import com.baysalmehmed.model.couchbase.Profile;
 import com.baysalmehmed.repository.ProfileRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ public class ProfileService {
     }
 
     public Profile getProfile(String id){
-        return profileRepository.findById(id).orElse(null);
+        return profileRepository.findById(id).orElseThrow(() -> new ProfileNotFound(id));
     }
 
     public Profile createProfile(Profile profile){

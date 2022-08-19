@@ -24,5 +24,4 @@ public class Profile {
     private String email;
     private String phoneNumber;
     private List<Vehicle> vehicles;
-    private List<Rental> rentals;
 }

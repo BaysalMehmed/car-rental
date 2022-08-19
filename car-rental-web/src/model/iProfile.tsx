@@ -2,9 +2,9 @@ import iVehicle from "./iVehicle"
 
 export default interface iProfile{
 
-    firstName: String
-    surname: String
-    email: String
-    phoneNumber: String
+    firstName: string
+    surname: string
+    email: string
+    phoneNumber: string
     vehicles?: iVehicle[]
 }

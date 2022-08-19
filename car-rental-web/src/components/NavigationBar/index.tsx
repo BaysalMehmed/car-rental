@@ -1,4 +1,4 @@
-import {Container, Nav, Navbar, NavDropdown, NavItem} from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown, NavItem } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 
 export default function NavigationBar() {
@@ -9,10 +9,12 @@ export default function NavigationBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Profile" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={NavLink} to="/">View</NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/create">Create</NavDropdown.Item>
-            </NavDropdown>
+            <NavItem>
+              <Nav.Link as={Link} to="/profile" >Home</Nav.Link>
+            </NavItem>
+            <NavItem>
+              <Nav.Link as={Link} to="/vehicles" >Vehicles</Nav.Link>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Container>
