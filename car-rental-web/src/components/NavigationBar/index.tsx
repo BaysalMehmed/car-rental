@@ -10,7 +10,7 @@ export default function NavigationBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <NavItem>
-              <Nav.Link as={Link} to="/profile" >Home</Nav.Link>
+              <Nav.Link as={Link} to="/profile" >Profile</Nav.Link>
             </NavItem>
             <NavItem>
               <Nav.Link as={Link} to="/vehicles" >Vehicles</Nav.Link>

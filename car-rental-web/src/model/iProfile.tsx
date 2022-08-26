@@ -7,4 +7,5 @@ export default interface iProfile{
     email: string
     phoneNumber: string
     vehicles?: iVehicle[]
+    password: string    
 }

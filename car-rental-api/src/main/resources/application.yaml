@@ -1,4 +1,9 @@
-
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+jwt:
+  secret: javainuse
 couchbase:
   server:
     127.0.0.1

@@ -13,16 +13,31 @@ public class VehicleService {
 
     protected final ProfileService profileService;
 
+    private Profile profile;
+
     public VehicleService(VehicleRepository vehicleRepository, ProfileService profileService) {
         this.vehicleRepository = vehicleRepository;
         this.profileService = profileService;
+        this.profile = profileService.getProfileById("profile_80036cdd-0f4c-4905-af45-b1e664d261e1");
+    }
+
+    private void getProfile(){
+        profile = profileService.getProfileById("profile_80036cdd-0f4c-4905-af45-b1e664d261e1");
     }
     public List<Vehicle> getVehicles() {
-        Profile profile = profileService.getProfile("profile_862a0857-0aaa-4faa-89b6-2be11b2f80b8");
+        getProfile();
         return profile.getVehicles();
     }
 
-    public Vehicle addVehicle(Vehicle vehicle){
-        return vehicleRepository.save(vehicle);
+    public Profile addVehicle(Vehicle vehicle){
+        getProfile();
+        profile.addVehicle(vehicle);
+        return profileService.saveProfile(profile);
+    }
+
+    public Profile deleteVehicle(String numberPlate){
+        getProfile();
+        profile.deleteVehicle(numberPlate);
+        return profileService.saveProfile(profile);
     }
 }

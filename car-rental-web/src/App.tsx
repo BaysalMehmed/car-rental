@@ -3,6 +3,7 @@ import CreateProfile from './components/CreateProfile';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import MyVehicles from './components/MyVehicles';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div className='app-space'>
         <Routes>
           <Route path="/profile" element={<CreateProfile />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/vehicles" element={<MyVehicles />} />
         </Routes>
       </div>

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import { createProfile, getProfile } from "../../service/ProfileService"
+import { MdOutlineErrorOutline } from 'react-icons/md';
 import bcrypt from 'bcryptjs'
+
+
 
 interface iFieldValidation {
     value: string
@@ -8,24 +11,13 @@ interface iFieldValidation {
 }
 
 
-export default function CreateProfile() {
+export default function Register() {
 
     const [firstName, setFirstName] = useState<iFieldValidation>({ value: "" })
     const [surname, setSurname] = useState<iFieldValidation>({ value: "" })
     const [email, setEmail] = useState<iFieldValidation>({ value: "" })
     const [phoneNumber, setPhoneNumber] = useState<iFieldValidation>({ value: "" })
     const [password, setPassword] = useState<iFieldValidation>({ value: "" })
-
-    useEffect(() => {
-        getProfile("profile_8a4f09c4-7f5a-4425-957e-0f6cd7316cc5").then((data) => {
-            setFirstName({value: data.firstName})
-            setSurname({value: data.surname})
-            setEmail({value: data.email})
-            setPhoneNumber({value: data.phoneNumber})
-            setPassword({value: "*****"})
-        })
-
-    }, [])
 
     function validate(value: any, valid: boolean, error: string) {
         return { value: value, error: valid ? "" : error }
@@ -61,7 +53,7 @@ export default function CreateProfile() {
                 <button className="submit-button" 
                     onClick={() => createProfile({ firstName: firstName.value, surname: surname.value, email: email.value, phoneNumber: phoneNumber.value, password: bcrypt.hashSync(password.value, '$2a$10$CwTycUXWue0Thq9StjUM0u') })
                         .then(data => console.log(data))}>
-                    Save
+                    Register
                 </button>
             </div>
         </div>

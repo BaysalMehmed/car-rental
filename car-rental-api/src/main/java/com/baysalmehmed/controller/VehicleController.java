@@ -1,5 +1,6 @@
 package com.baysalmehmed.controller;
 
+import com.baysalmehmed.model.couchbase.Profile;
 import com.baysalmehmed.model.couchbase.Vehicle;
 import com.baysalmehmed.service.VehicleService;
 import org.springframework.http.HttpStatus;
@@ -28,8 +29,13 @@ public class VehicleController {
     }
 
     @PostMapping
-    public ResponseEntity<Vehicle> AddVehicle(@RequestBody Vehicle vehicle){
+    public ResponseEntity<Profile> AddVehicle(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.addVehicle(vehicle), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{numberPlate}")
+    public ResponseEntity<Profile> DeleteVehicle(@PathVariable String numberPlate){
+        return new ResponseEntity<>(vehicleService.deleteVehicle(numberPlate), HttpStatus.OK);
     }
 
 }

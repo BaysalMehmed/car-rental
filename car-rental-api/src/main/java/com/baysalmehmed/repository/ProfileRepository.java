@@ -11,4 +11,6 @@ public interface ProfileRepository extends CouchbaseRepository<Profile, String> 
 
     Optional<Profile> findById(String id);
 
+    Optional<Profile> findByEmail(String email);
+
 }

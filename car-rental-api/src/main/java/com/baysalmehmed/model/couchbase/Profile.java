@@ -6,7 +6,10 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 import org.springframework.data.couchbase.core.mapping.id.IdPrefix;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Document
@@ -24,4 +27,17 @@ public class Profile {
     private String email;
     private String phoneNumber;
     private List<Vehicle> vehicles;
+    private String password;
+
+    public Profile() {
+        this.vehicles = new ArrayList<>();
+    }
+
+    public void addVehicle(Vehicle vehicle){
+        vehicles.add(vehicle);
+    }
+
+    public void deleteVehicle(String numberPlate){
+        vehicles.removeIf(vehicle -> Objects.equals(vehicle.getNumberPlate(), numberPlate));
+    }
 }

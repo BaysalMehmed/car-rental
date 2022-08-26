@@ -16,13 +16,16 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    public Profile getProfile(String id){
+    public Profile getProfileById(String id){
         return profileRepository.findById(id).orElseThrow(() -> new ProfileNotFound(id));
     }
 
-    public Profile createProfile(Profile profile){
+    public Profile getProfileByEmail(String email){
+        return profileRepository.findByEmail(email).orElseThrow(() -> new ProfileNotFound(email));
+    }
+
+    public Profile saveProfile(Profile profile){
         profileRepository.save(profile);
         return profile;
     }
-
 }
