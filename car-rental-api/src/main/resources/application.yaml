@@ -1,7 +1,7 @@
 logging:
   level:
-    root: DEBUG
-    org.springframework.web: DEBUG
+    root: ERROR
+    org.springframework.web: ERROR
 jwt:
   secret: javainuse
 couchbase:

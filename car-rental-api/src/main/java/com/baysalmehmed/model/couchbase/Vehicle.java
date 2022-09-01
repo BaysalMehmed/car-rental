@@ -15,7 +15,9 @@ public class Vehicle {
     VehicleColour colour;
     Integer year;
     String numberPlate;
+    List<Availability> availability;
     List<Rental> rentals;
+    List<String> imageNames;
 
     public Vehicle() {
         this.rentals = new ArrayList<>();

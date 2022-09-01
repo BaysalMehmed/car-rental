@@ -7,7 +7,6 @@
   margin: 10px;
   margin-left: 10%;
   margin-right: 10%;
-  text-align: center;
 }
 
 .input-div{
@@ -44,4 +43,18 @@
 
  .react-select{
   margin-bottom: 5px;
+ }
+
+ .width-100{
+  width: 100%;
+  text-align: center;
+ }
+
+ .react-datepicker-wrapper{
+  width: 42% !important;
+ }
+
+ .card-format{
+  display: inline-block !important;
+  margin-right: 10px;
  }

@@ -1,4 +1,8 @@
-import iVehicle from "../model/iVehicle";
+import iVehicle, { iBrand } from "../model/iVehicle"
+
+export async function getAllBrands(): Promise<iBrand[]> {
+    return await fetch("http://localhost:8080/vehicle/brands").then(data => data.json())
+}
 
 export async function getVehicles(): Promise<iVehicle[]> {
     return await fetch("http://localhost:8080/vehicle").then(data => data.json())
