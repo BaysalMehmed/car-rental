@@ -1,7 +1,10 @@
-import { Modal, ModalBody, ModalFooter, ModalHeader, Tab, Tabs } from "react-bootstrap"
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Tab, Tabs } from "react-bootstrap"
 import iVehicle from "../../model/iVehicle"
 import "react-datepicker/dist/react-datepicker.css";
-import { format, parseISO } from "date-fns";
+import AvailabilityEditor from "../AvailabilityEditor";
+import { useState } from "react";
+import iAvailability from "../../model/iAvailability";
+import { updateAvailability } from "../../service/VehicleService";
 
 interface iViewVehicle {
     show: boolean
@@ -16,7 +19,7 @@ export default function ViewVehicle(props: iViewVehicle) {
 
     const { brand, model, trim, colour, year, numberPlate, availability } = vehicleToView
 
-    console.log(availability)
+    const [availabilityState, setAvailabilityState] = useState<iAvailability[]>(availability)
 
     return (
         <Modal show={show} onHide={() => setShow(false)}>
@@ -34,15 +37,12 @@ export default function ViewVehicle(props: iViewVehicle) {
 
                     </Tab>
                     <Tab eventKey="availability" title="Availability">
-                        {availability !== null && availability.map(a => {
-                            console.log(new Date(a.startDate as Date))
-                            return <p>{
-                                (a.startDate !== null ? format(parseISO(a.startDate.toString()), "dd/MM/yyyy") : "")
-                                + " - "
-                                + (a.endDate !== null ? format(parseISO(a.endDate.toString()), "dd/MM/yyyy") : "")} </p>
-                        })}
+                        <AvailabilityEditor availabilities={availabilityState} setInheritAvailabilities={setAvailabilityState}/>
                     </Tab>
                 </Tabs>
+                <Button onClick={() => {
+                    updateAvailability(numberPlate, availabilityState).then(data => console.log(data))
+                }}>Save</Button>
             </ModalBody>
             <ModalFooter>
             </ModalFooter>

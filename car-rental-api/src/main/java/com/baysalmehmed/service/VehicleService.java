@@ -1,5 +1,6 @@
 package com.baysalmehmed.service;
 
+import com.baysalmehmed.model.couchbase.Availability;
 import com.baysalmehmed.model.couchbase.Brand;
 import com.baysalmehmed.model.couchbase.Profile;
 import com.baysalmehmed.model.couchbase.Vehicle;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class VehicleService {
@@ -55,6 +57,12 @@ public class VehicleService {
     public Profile deleteVehicle(String numberPlate){
         getProfile();
         profile.deleteVehicle(numberPlate);
+        return profileService.saveProfile(profile);
+    }
+
+    public Profile updateAvailability(String numberPlate, List<Availability> availabilities){
+        getProfile();
+        profile.getVehicles().stream().filter(vehicle -> Objects.equals(vehicle.getNumberPlate(), numberPlate)).forEach(vehicle -> vehicle.setAvailability(availabilities));
         return profileService.saveProfile(profile);
     }
 }

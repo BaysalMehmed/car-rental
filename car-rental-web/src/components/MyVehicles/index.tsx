@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Card, Modal, ModalBody, ModalFooter, ModalHeader, Table } from "react-bootstrap"
+import { Button, Card} from "react-bootstrap"
 import iVehicle from "../../model/iVehicle"
 import { deleteVehicle, getVehicles } from "../../service/VehicleService"
 import AddVehicle from "../AddVehicle"
@@ -14,8 +14,24 @@ export default function MyVehicles() {
 
     const [refresh, setRefresh] = useState<boolean>(false)
 
+    function convertDates(vehicles: iVehicle[]): iVehicle[]{
+        vehicles.map(vehicle => {
+            vehicle.availability.forEach(avail => {
+                if(avail.startDate !== null){
+                avail.startDate = new Date(avail.startDate)
+                }
+
+                if(avail.endDate !== null){
+                avail.endDate = new Date(avail.endDate)
+                }
+            })
+        })
+
+        return vehicles
+    }
+
     useEffect(() => {
-        getVehicles().then(vehicles => setVehicles(vehicles)).catch(ex => console.log(ex))
+        getVehicles().then(vehicles => setVehicles(convertDates(vehicles))).catch(ex => console.log(ex))
     }, [refresh])
 
     function set(vehicle: iVehicle){

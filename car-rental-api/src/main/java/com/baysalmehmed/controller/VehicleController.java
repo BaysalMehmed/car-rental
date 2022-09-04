@@ -1,8 +1,10 @@
 package com.baysalmehmed.controller;
 
+import com.baysalmehmed.model.couchbase.Availability;
 import com.baysalmehmed.model.couchbase.Brand;
 import com.baysalmehmed.model.couchbase.Profile;
 import com.baysalmehmed.model.couchbase.Vehicle;
+import com.baysalmehmed.model.dto.VehicleImage;
 import com.baysalmehmed.service.ImageService;
 import com.baysalmehmed.service.VehicleService;
 import com.baysalmehmed.utils.FileUploadUtil;
@@ -50,8 +52,8 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getBrands());
     }
 
-    @PostMapping()
-    public ResponseEntity<Profile> AddVehicle(@RequestParam(value = "vehicle") String vehicleString, @RequestParam(value = "files", required = false) List<MultipartFile> files) throws JsonProcessingException {
+    @PostMapping(consumes = "multipart/form-data")
+    public ResponseEntity<Profile> AddVehicle(@RequestPart("vehicle") String vehicleString, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws JsonProcessingException {
 
         ObjectMapper om = new ObjectMapper();
         Vehicle vehicle = om.readValue(vehicleString, Vehicle.class);
@@ -61,6 +63,11 @@ public class VehicleController {
     @DeleteMapping("/{numberPlate}")
     public ResponseEntity<Profile> DeleteVehicle(@PathVariable String numberPlate){
         return new ResponseEntity<>(vehicleService.deleteVehicle(numberPlate), HttpStatus.OK);
+    }
+
+    @PutMapping("/{numberPlate}/availability")
+    public ResponseEntity<Profile> updateAvailability(@PathVariable String numberPlate, @RequestBody List<Availability> availabilities){
+        return ResponseEntity.ok(vehicleService.updateAvailability(numberPlate, availabilities));
     }
 
     @GetMapping(path="/image/{imageName}")

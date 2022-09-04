@@ -3,9 +3,8 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "react-bootst
 import ReactSelect from "react-select"
 import iVehicle from "../../model/iVehicle"
 import { addVehicle, getAllBrands } from "../../service/VehicleService"
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import iAvailability from "../../model/iAvailability"
+import AvailabilityEditor from "../AvailabilityEditor"
 
 interface iAddVehicle {
     show: boolean
@@ -27,7 +26,6 @@ interface iTrim {
     name: String
 }
 
-
 export default function AddVehicle(props: iAddVehicle) {
 
     const { show, setShow, forceParentRefresh } = props
@@ -35,6 +33,7 @@ export default function AddVehicle(props: iAddVehicle) {
     const [brands, setBrands] = useState<iBrand[]>([])
     const [vehicleToAdd, setVehicleToAdd] = useState<iVehicle>( {} as iVehicle)
     const [availabilities, setAvailabilities] = useState<iAvailability[]>([])
+    const [selectedImage, setSelectedImage] = useState<FileList|null>(null)
 
     useEffect(() => {
         getAllBrands().then(brands => setBrands(brands)).catch(err => console.log(err))
@@ -53,29 +52,9 @@ export default function AddVehicle(props: iAddVehicle) {
     }
 
     function submit() {
-        console.log(availabilities)
         setVehicleToAdd({...vehicleToAdd, availability: availabilities})
         vehicleToAdd.availability = availabilities
-        addVehicle(vehicleToAdd).then(() => { setShow(false); forceParentRefresh() }).catch(err => console.log(err))
-    }
-
-    function addAvail() {
-        setAvailabilities([...availabilities, { startDate: new Date(), endDate: null }])
-    }
-
-    function removeAvail(index: number) {
-        availabilities.splice(index, 1)
-        setAvailabilities([...availabilities])
-    }
-
-    function setStartDate(index: number, date: Date | null) {
-        availabilities[index].startDate = date
-        setAvailabilities([...availabilities])
-    }
-
-    function setEndDate(index: number, date: Date | null) {
-        availabilities[index].endDate = date
-        setAvailabilities([...availabilities])
+        addVehicle(vehicleToAdd, selectedImage).then(() => { setShow(false); forceParentRefresh() }).catch(err => console.log(err))
     }
 
     return (
@@ -89,30 +68,9 @@ export default function AddVehicle(props: iAddVehicle) {
                 <input style={{ width: "100%", marginBottom: "5px" }} placeholder="Year" onChange={(input) => setVehicleToAdd({ ...vehicleToAdd, year: parseInt(input.currentTarget.value) })} />
                 <input style={{ width: "100%", marginBottom: "10px" }} placeholder="Number Plate" onChange={(input) => setVehicleToAdd({ ...vehicleToAdd, numberPlate: input.currentTarget.value })} />
 
-                <div id='avails'>
-                    {availabilities.length > 0 && availabilities.map((avail, idx) => {
-                        return <>
-                            <DatePicker
-                                selected={avail.startDate}
-                                onChange={(date) => setStartDate(idx, date)}
-                                placeholderText="Start Date"
-                                showTimeSelect
-                                dateFormat={"dd/MM/yyyy"}
-                                
-                            />
-                            <DatePicker
-                                selected={avail.endDate}
-                                onChange={(date) => setEndDate(idx, date)}
-                                placeholderText="End Date"
-                                showTimeSelect
-                                dateFormat={"dd/MM/yyyy"}
-                            />
-                            <Button onClick={() => removeAvail(idx)}>Delete</Button>
-                        </>
-                    })}
+                <input title="Choose Images" multiple type={"file"} onChange={(event) => { setSelectedImage(event.target.files)}}/>
 
-                </div>
-                <Button style={{ width: "100%", marginBottom: "5px" }} onClick={() => addAvail()}>Add Availability</Button>
+                <AvailabilityEditor availabilities={availabilities} setInheritAvailabilities={setAvailabilities}/>
 
             </ModalBody>
             <ModalFooter>
