@@ -60,9 +60,10 @@ public class VehicleService {
         return profileService.saveProfile(profile);
     }
 
-    public Profile updateAvailability(String numberPlate, List<Availability> availabilities){
+    public List<Availability> updateAvailability(String numberPlate, List<Availability> availabilities){
         getProfile();
         profile.getVehicles().stream().filter(vehicle -> Objects.equals(vehicle.getNumberPlate(), numberPlate)).forEach(vehicle -> vehicle.setAvailability(availabilities));
-        return profileService.saveProfile(profile);
+        profileService.saveProfile(profile);
+        return availabilities;
     }
 }

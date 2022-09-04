@@ -9,9 +9,9 @@ export default function NavigationBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <NavItem>
+            {/* <NavItem>
               <Nav.Link as={Link} to="/profile" >Profile</Nav.Link>
-            </NavItem>
+            </NavItem> */}
             <NavItem>
               <Nav.Link as={Link} to="/vehicles" >Vehicles</Nav.Link>
             </NavItem>

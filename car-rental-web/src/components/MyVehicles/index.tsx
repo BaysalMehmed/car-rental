@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Card} from "react-bootstrap"
 import iVehicle from "../../model/iVehicle"
+import { convertVehicleListDates } from "../../service/AvailabilityDatesService"
 import { deleteVehicle, getVehicles } from "../../service/VehicleService"
 import AddVehicle from "../AddVehicle"
 import ViewVehicle from "../ViewVehicle"
@@ -14,25 +15,9 @@ export default function MyVehicles() {
 
     const [refresh, setRefresh] = useState<boolean>(false)
 
-    function convertDates(vehicles: iVehicle[]): iVehicle[]{
-        vehicles.map(vehicle => {
-            vehicle.availability.forEach(avail => {
-                if(avail.startDate !== null){
-                avail.startDate = new Date(avail.startDate)
-                }
-
-                if(avail.endDate !== null){
-                avail.endDate = new Date(avail.endDate)
-                }
-            })
-        })
-
-        return vehicles
-    }
-
     useEffect(() => {
-        getVehicles().then(vehicles => setVehicles(convertDates(vehicles))).catch(ex => console.log(ex))
-    }, [refresh])
+        getVehicles().then(vehicles => setVehicles(convertVehicleListDates(vehicles))).catch(ex => console.log(ex))
+    }, [refresh, showViewVehicleModal])
 
     function set(vehicle: iVehicle){
         setVehicleToView(vehicle)
@@ -44,9 +29,10 @@ export default function MyVehicles() {
         <Button style={{ float: "right" }} onClick={() => setShowAddVehicleModal(true)}>Add Vehicle</Button>
         <AddVehicle show={showAddVehicleModal} setShow={setShowAddVehicleModal} forceParentRefresh={() => setRefresh(!refresh)} />
         
-        {vehicleToView !== undefined && <ViewVehicle show={showViewVehicleModal} setShow={setShowViewVehicleModal} vehicleToView={vehicleToView}/>}
+        {vehicleToView !== undefined && <ViewVehicle show={showViewVehicleModal} setShow={setShowViewVehicleModal} vehicleToView={vehicleToView} 
+        clearVehicleToView={ () => setVehicleToView(undefined)} />} 
 
-        {vehicles?.map((vehicle, idx) => {
+        {vehicles?.map(vehicle => {
             return (
                 <Card className="card-format" style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={"http://localhost:8080/vehicle/image/" + vehicle.imageNames[0]} />

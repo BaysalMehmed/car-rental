@@ -33,8 +33,6 @@ export default function AvailabilityEditor(props: iAvailabilityEditor) {
         setInheritAvailabilities([...availabilities])
     }
 
-    console.log(availabilities)
-
     return (
         <>
             <div id='avails'>

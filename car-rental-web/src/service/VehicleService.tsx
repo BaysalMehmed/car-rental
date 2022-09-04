@@ -35,6 +35,6 @@ export async function deleteVehicle(numberPlate: String): Promise<iVehicle> {
     return await fetch("http://localhost:8080/vehicle/" + numberPlate, {method: "DELETE"}).then(data => data.json())
 }
 
-export async function updateAvailability(numberPlate: String, availabilities: iAvailability[]){
+export async function updateAvailability(numberPlate: String, availabilities: iAvailability[]): Promise<iAvailability[]>{
     return await fetch("http://localhost:8080/vehicle/" + numberPlate + "/availability", {method: "PUT", headers: { 'Content-Type': 'application/json' },  body: JSON.stringify(availabilities)}).then(data => data.json())
 }

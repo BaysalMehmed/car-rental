@@ -4,10 +4,8 @@ import com.baysalmehmed.model.couchbase.Availability;
 import com.baysalmehmed.model.couchbase.Brand;
 import com.baysalmehmed.model.couchbase.Profile;
 import com.baysalmehmed.model.couchbase.Vehicle;
-import com.baysalmehmed.model.dto.VehicleImage;
 import com.baysalmehmed.service.ImageService;
 import com.baysalmehmed.service.VehicleService;
-import com.baysalmehmed.utils.FileUploadUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -66,7 +59,7 @@ public class VehicleController {
     }
 
     @PutMapping("/{numberPlate}/availability")
-    public ResponseEntity<Profile> updateAvailability(@PathVariable String numberPlate, @RequestBody List<Availability> availabilities){
+    public ResponseEntity<List<Availability>> updateAvailability(@PathVariable String numberPlate, @RequestBody List<Availability> availabilities){
         return ResponseEntity.ok(vehicleService.updateAvailability(numberPlate, availabilities));
     }
 
