@@ -37,7 +37,7 @@ export default function AvailabilityEditor(props: iAvailabilityEditor) {
         <>
             <div id='avails'>
                 {availabilities.length > 0 && availabilities.map((avail, idx) => {
-                    return <>
+                    return <div style={{marginBottom: "5px"}}>
                         <DatePicker
                             selected={avail.startDate}
                             onChange={(date) => setStartDate(idx, date)}
@@ -54,12 +54,12 @@ export default function AvailabilityEditor(props: iAvailabilityEditor) {
                             dateFormat={"dd/MM/yyyy"}
                         />
                         <Button onClick={() => removeAvail(idx)}>Delete</Button>
-                    </>
+                    </div>
                 })}
 
 
             </div>
-            <Button style={{ width: "100%", marginBottom: "5px" }} onClick={() => addAvail()}>Add Availability</Button>
+            <Button style={{ width: "100%", marginBottom: "5px", marginTop: "5px" }} onClick={() => addAvail()}>Add Availability</Button>
         </>
     )
 } 

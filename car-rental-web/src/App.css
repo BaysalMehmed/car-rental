@@ -58,3 +58,26 @@
   display: inline-block !important;
   margin-right: 10px;
  }
+
+ .prev-image{
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+  position: relative;
+  bottom: 50px;
+  opacity: 0.5;
+ }
+
+ .next-image{
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  position: relative;
+  bottom: 50px;
+  opacity: 0.5;
+ }
+
+ .title-left{
+  position: relative;
+  right: -10px
+ }

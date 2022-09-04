@@ -4,6 +4,7 @@ import iVehicle from "../../model/iVehicle"
 import { convertVehicleListDates } from "../../service/AvailabilityDatesService"
 import { deleteVehicle, getVehicles } from "../../service/VehicleService"
 import AddVehicle from "../AddVehicle"
+import CardImages from "../CardImages"
 import ViewVehicle from "../ViewVehicle"
 
 export default function MyVehicles() {
@@ -35,9 +36,9 @@ export default function MyVehicles() {
         {vehicles?.map(vehicle => {
             return (
                 <Card className="card-format" style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={"http://localhost:8080/vehicle/image/" + vehicle.imageNames[0]} />
-                    <Card.Body>
-                        <Card.Title>{vehicle.brand + " " + vehicle.model + " " + vehicle.trim}</Card.Title>
+                    <CardImages imageNames={vehicle.imageNames}/>
+                    <Card.Body> 
+                        <Card.Title >{vehicle.brand + " " + vehicle.model + " " + vehicle.trim}</Card.Title>
                         <Card.Text>
                             {vehicle.numberPlate}
                         </Card.Text>

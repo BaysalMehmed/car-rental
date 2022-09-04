@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Tab, Tabs } from "react-bootstrap"
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Tab, Tabs, Image } from "react-bootstrap"
 import iVehicle from "../../model/iVehicle"
 import "react-datepicker/dist/react-datepicker.css";
 import AvailabilityEditor from "../AvailabilityEditor";
@@ -19,7 +19,7 @@ export default function ViewVehicle(props: iViewVehicle) {
 
     const { show, setShow, vehicleToView, clearVehicleToView} = props
 
-    const { brand, model, trim, colour, year, numberPlate, availability } = vehicleToView
+    const { brand, model, trim, colour, year, numberPlate, imageNames, availability } = vehicleToView
 
     const [availabilityState, setAvailabilityState] = useState<iAvailability[]>(availability)
 
@@ -30,7 +30,7 @@ export default function ViewVehicle(props: iViewVehicle) {
 
     return (
         <Modal show={show} onHide={() => onClose()}>
-            <ModalHeader closeButton>{brand + " " + model + " " + trim}</ModalHeader>
+            <ModalHeader><b>{brand + " " + model + " " + trim}</b></ModalHeader>
             <ModalBody>
                 <Tabs
                     defaultActiveKey="details"
@@ -38,20 +38,30 @@ export default function ViewVehicle(props: iViewVehicle) {
                     className="mb-3"
                 >
                     <Tab eventKey="details" title="Details">
-                        <p>{colour}</p>
-                        <p>{year}</p>
-                        <p>{numberPlate}</p>
+                        <p><b>Colour </b>{colour}</p>
+                        <p><b>Year </b>{year}</p>
+                        <p><b>Number Plate </b>{numberPlate}</p>
+
+                    </Tab>
+                    <Tab eventKey="images" title="Images">
+                        {imageNames.map(image => {
+                            return <Image style={{marginBottom: "5px", marginRight: "5px"}} width={"200px"} height={"120px"} src={"http://localhost:8080/vehicle/image/" + image}/>
+                        })}
+                        <input type="file"></input>
 
                     </Tab>
                     <Tab eventKey="availability" title="Availability">
                         <AvailabilityEditor availabilities={availabilityState} setInheritAvailabilities={setAvailabilityState}/>
                     </Tab>
                 </Tabs>
-                <Button onClick={() => {
-                    updateAvailability(numberPlate, availabilityState).then(data => setAvailabilityState(convertDates(data))).then(() => setShow(false))
-                }}>Save</Button>
             </ModalBody>
             <ModalFooter>
+            <Button style={{float:"right"}} onClick={() => {
+                    updateAvailability(numberPlate, availabilityState).then(data => setAvailabilityState(convertDates(data))).then(() => setShow(false))
+                }}>Save</Button>
+                <Button variant="secondary" style={{float:"right", marginRight: "5px"}} onClick={() => {
+                    onClose()
+                }}>Cancel</Button>
             </ModalFooter>
         </Modal>
     )
