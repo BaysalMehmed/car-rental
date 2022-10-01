@@ -6,13 +6,16 @@ import com.baysalmehmed.model.couchbase.Profile;
 import com.baysalmehmed.model.couchbase.Vehicle;
 import com.baysalmehmed.repository.BrandRepository;
 import com.baysalmehmed.repository.VehicleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class VehicleService {
 
     protected final VehicleRepository vehicleRepository;
@@ -52,6 +55,21 @@ public class VehicleService {
         }
         profile.addVehicle(vehicle);
         return profileService.saveProfile(profile);
+    }
+
+    public String addImagesToVehicle(String numberPlate, List<MultipartFile> files){
+        getProfile();
+        log.warn("Adding images");
+        profile.getVehicles().stream().filter(vehicle -> Objects.equals(vehicle.getNumberPlate(), numberPlate))
+                .forEach(vehicle -> {
+                    List<String> imageNames = imageService.saveImages(files);
+                    log.warn(imageNames.toString());
+                    vehicle.setImageNames(imageNames);
+                });
+//                        imageService.saveImages(files)));
+        Profile p = profileService.saveProfile(profile);
+        log.warn(p.getVehicles().get(2).getImageNames().toString());
+        return p.getVehicles().get(2).getImageNames().toString();
     }
 
     public Profile deleteVehicle(String numberPlate){

@@ -64,12 +64,12 @@ public class VehicleController {
     }
 
     @GetMapping(path="/image/{imageName}")
-    public ResponseEntity<Resource> addImageForVehicle(@PathVariable String imageName){
+    public ResponseEntity<Resource> getImageForVehicle(@PathVariable String imageName){
         Resource file = imageService.loadImage(imageName);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
-    @PostMapping(path="/{numberPlate}/image", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<List<String>> addImageForVehicle(@RequestParam(value = "files", required = true) List<MultipartFile> files){
-        return ResponseEntity.ok(imageService.saveImages(files));
+    @PostMapping(path="/{numberPlate}/image", consumes = "multipart/form-data")
+    public ResponseEntity<String> addImageForVehicle(@PathVariable String numberPlate, @RequestPart(value = "files", required = true) List<MultipartFile> files){
+        return ResponseEntity.ok(vehicleService.addImagesToVehicle(numberPlate, files ));
     }
 }

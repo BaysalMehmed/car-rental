@@ -25,7 +25,6 @@ public class ProfileService {
     }
 
     public Profile saveProfile(Profile profile){
-        profileRepository.save(profile);
-        return profile;
+        return profileRepository.save(profile);
     }
 }

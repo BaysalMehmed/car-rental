@@ -11,11 +11,18 @@ export default function CardImages(props: iCardImages){
 
     const {imageNames} = props
 
+    const noImages =  imageNames === null || imageNames['length'] === 0
     return <>
     
-    <Card.Img variant="top" src={"http://localhost:8080/vehicle/image/" + imageNames[imageIndex]} />
+    <Card.Img variant="top" src={"http://localhost:8080/vehicle/image/" + (!noImages ? imageNames[imageIndex] : "placeholder.png")} />
     
+
+    { !noImages &&
+    <>
     {imageIndex - 1 >= 0 &&<Button className='prev-image' onClick={() => setImageIndex(imageIndex - 1)}>{"<<"}</Button> }
     {imageIndex + 1 < imageNames.length &&<Button className='next-image' onClick={() => setImageIndex(imageIndex + 1)}>{">>"}</Button> }
+    </>
+    }
+    
     </>
 }

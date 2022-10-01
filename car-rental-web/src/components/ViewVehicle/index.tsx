@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import AvailabilityEditor from "../AvailabilityEditor";
 import { useState } from "react";
 import iAvailability from "../../model/iAvailability";
-import { updateAvailability } from "../../service/VehicleService";
+import { addVehicle, updateVehicle } from "../../service/VehicleService";
 import convertDates from "../../service/AvailabilityDatesService";
 
 interface iViewVehicle {
@@ -22,6 +22,7 @@ export default function ViewVehicle(props: iViewVehicle) {
     const { brand, model, trim, colour, year, numberPlate, imageNames, availability } = vehicleToView
 
     const [availabilityState, setAvailabilityState] = useState<iAvailability[]>(availability)
+    const [selectedImage, setSelectedImage] = useState<FileList|null>(null)
 
     function onClose(){
         setShow(false)
@@ -44,10 +45,10 @@ export default function ViewVehicle(props: iViewVehicle) {
 
                     </Tab>
                     <Tab eventKey="images" title="Images">
-                        {imageNames.map(image => {
+                        {imageNames !== null && imageNames.map(image => {
                             return <Image style={{marginBottom: "5px", marginRight: "5px"}} width={"200px"} height={"120px"} src={"http://localhost:8080/vehicle/image/" + image}/>
                         })}
-                        <input type="file"></input>
+                        <input title="Choose Images" multiple type={"file"} onChange={(event) => { setSelectedImage(event.target.files)}}/>
 
                     </Tab>
                     <Tab eventKey="availability" title="Availability">
@@ -57,7 +58,8 @@ export default function ViewVehicle(props: iViewVehicle) {
             </ModalBody>
             <ModalFooter>
             <Button style={{float:"right"}} onClick={() => {
-                    updateAvailability(numberPlate, availabilityState).then(data => setAvailabilityState(convertDates(data))).then(() => setShow(false))
+                console.log(selectedImage)
+                    addVehicle(vehicleToView, selectedImage).then(data => console.log(data)).then(() => setShow(false))
                 }}>Save</Button>
                 <Button variant="secondary" style={{float:"right", marginRight: "5px"}} onClick={() => {
                     onClose()

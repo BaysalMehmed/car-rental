@@ -7,5 +7,6 @@ FROM openjdk:11
 EXPOSE 8080
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/car-rental-api.jar
+COPY Files-Upload/ Files-Upload/
 
 ENTRYPOINT ["java","-jar","/app/car-rental-api.jar"]

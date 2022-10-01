@@ -1,15 +1,21 @@
 logging:
   level:
-    root: ERROR
-    org.springframework.web: ERROR
+    root: INFO
+    org.springframework.web: INFO
 jwt:
   secret: javainuse
 couchbase:
   server:
-    127.0.0.1
+    host.docker.internal
+    #127.0.0.1
   username:
     admin
   password:
     password
   bucket:
     car-rental-bucket
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB

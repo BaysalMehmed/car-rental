@@ -34,6 +34,7 @@ public class Profile {
     }
 
     public void addVehicle(Vehicle vehicle){
+        vehicles.removeIf(vehicle1 -> vehicle1.getNumberPlate().equals(vehicle.getNumberPlate()));
         vehicles.add(vehicle);
     }
 
