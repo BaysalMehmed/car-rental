@@ -1,0 +1,13 @@
+services:
+  car-rental-api:
+    build: ./car-rental-api
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+  car-rental-web:
+    build: ./car-rental-web
+    ports:
+      - "80:80"
+    expose:
+      - "80"
